@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Emmanuel John-Nelson — Data Analyst, Software Engineer & BI Specialist based in Middlesbrough, UK. BSc Software Engineering (Teesside) + MEng Computer Engineering (Leeds). Open to graduate and full-time roles."/>
+  <title>Emmanuel John-Nelson — Data Analyst & Software Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:   #0A0F1E;
+      --navy2:  #111827;
+      --steel:  #1C2B4A;
+      --cyan:   #00D4FF;
+      --cyan2:  #00A8CC;
+      --white:  #F0F4F8;
+      --slate:  #8899AA;
+      --border: rgba(0,212,255,0.15);
+      --card:   rgba(28,43,74,0.5);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--navy); color: var(--white); font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2.5rem; background: rgba(10,15,30,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--cyan); letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--slate); text-decoration: none; letter-spacing: 0.04em; transition: color .2s; }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ── HERO ── */
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 7rem 2.5rem 4rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -40%; right: -15%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 65%); pointer-events: none; }
+
+    /* hero-inner: flex row, photo left + text right */
+    .hero-inner { display: flex; align-items: center; gap: 4rem; max-width: 1000px; flex-wrap: wrap; }
+
+    /* Photo */
+    .hero-photo-wrap { flex-shrink: 0; position: relative; width: 210px; height: 210px; }
+    .hero-photo-wrap::before { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: conic-gradient(var(--cyan) 0deg, transparent 110deg, var(--cyan) 220deg, transparent 360deg); animation: spin 9s linear infinite; z-index: 0; }
+    .hero-photo-wrap::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: var(--navy); z-index: 1; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-photo { position: relative; z-index: 2; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center 10%; display: block; }
+
+    /* Text column */
+    .hero-text { flex: 1; min-width: 280px; }
+    .hero-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--cyan); }
+    .hero-text h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 700; line-height: 1.05; margin-bottom: 1.4rem; letter-spacing: -0.02em; }
+    .hero-text h1 span { color: var(--cyan); }
+    .terminal { background: rgba(17,24,39,0.92); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.4rem; margin-bottom: 1.6rem; max-width: 500px; }
+    .terminal-bar { display: flex; gap: 6px; margin-bottom: 0.75rem; }
+    .terminal-bar span { width: 11px; height: 11px; border-radius: 50%; }
+    .dot-red { background: #FF5F57; } .dot-yellow { background: #FEBC2E; } .dot-green { background: #28C840; }
+    .terminal-line { font-family: 'JetBrains Mono', monospace; font-size: 0.83rem; color: var(--slate); }
+    .terminal-line .prompt { color: var(--cyan); }
+    #typewriter { color: var(--white); font-family: 'JetBrains Mono', monospace; font-size: 0.83rem; }
+    .cursor { display: inline-block; width: 8px; height: 1em; background: var(--cyan); vertical-align: middle; margin-left: 2px; animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-desc { font-size: 1rem; color: var(--slate); max-width: 520px; line-height: 1.75; margin-bottom: 1.8rem; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.6rem; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.03em; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--cyan); color: var(--navy); }
+    .btn-primary:hover { background: var(--cyan2); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--cyan); border: 1.5px solid var(--cyan); }
+    .btn-outline:hover { background: rgba(0,212,255,0.08); transform: translateY(-2px); }
+
+    /* ── STATS ── */
+    .stats-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: rgba(17,24,39,0.45); }
+    .stat { display: flex; flex-direction: column; gap: 0.2rem; padding: 2rem 2.5rem; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 1.85rem; font-weight: 700; color: var(--cyan); letter-spacing: -0.03em; }
+    .stat-label { font-size: 0.75rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.4; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2.5rem; }
+    .section-label { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; color: var(--cyan); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.65rem, 3.5vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 3rem; line-height: 1.1; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--navy2); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.25rem; }
+    .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; transition: border-color .2s, transform .2s; }
+    .skill-card:hover { border-color: rgba(0,212,255,0.42); transform: translateY(-3px); }
+    .skill-icon { font-size: 1.4rem; margin-bottom: 0.7rem; }
+    .skill-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.93rem; font-weight: 600; margin-bottom: 0.7rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.22rem 0.55rem; background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.2); border-radius: 4px; color: var(--cyan); }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--navy); }
+    .exp-timeline { max-width: 740px; }
+    .exp-item { position: relative; padding-left: 2rem; margin-bottom: 2.8rem; }
+    .exp-item::before { content: ''; position: absolute; left: 0; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+    .exp-item::after { content: ''; position: absolute; left: 4px; top: 20px; width: 1px; height: calc(100% + 0.5rem); background: var(--border); }
+    .exp-item:last-child::after { display: none; }
+    .exp-date { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; color: var(--cyan); margin-bottom: 0.25rem; letter-spacing: 0.05em; }
+    .exp-role { font-family: 'Space Grotesk', sans-serif; font-size: 1.08rem; font-weight: 600; margin-bottom: 0.18rem; }
+    .exp-company { font-size: 0.86rem; color: var(--slate); margin-bottom: 0.7rem; }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li { font-size: 0.88rem; color: var(--slate); padding: 0.22rem 0 0.22rem 1.2rem; position: relative; line-height: 1.55; }
+    .exp-bullets li::before { content: '›'; position: absolute; left: 0; color: var(--cyan); }
+    .exp-metric { display: inline-block; background: rgba(0,212,255,0.1); color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; padding: 0.12rem 0.45rem; border-radius: 3px; margin-left: 0.3rem; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--navy2); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; }
+    .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.9rem; cursor: pointer; transition: border-color .2s, transform .2s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), transparent); opacity: 0; transition: opacity .2s; }
+    .project-card:hover { border-color: rgba(0,212,255,0.45); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-thumb { width: 100%; height: 160px; border-radius: 8px; overflow: hidden; margin-bottom: 0.3rem; }
+    .project-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+    .project-card:hover .project-thumb img { transform: scale(1.04); }
+    .project-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .project-icon { font-size: 1.5rem; }
+    .project-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--cyan); background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2); padding: 0.18rem 0.5rem; border-radius: 4px; }
+    .project-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; font-weight: 600; line-height: 1.3; }
+    .project-card p { font-size: 0.86rem; color: var(--slate); line-height: 1.6; flex: 1; }
+    .project-metric { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--cyan); background: rgba(0,212,255,0.07); border-radius: 4px; padding: 0.28rem 0.65rem; display: inline-block; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.38rem; }
+    .project-tech .tag { font-size: 0.67rem; opacity: 0.82; }
+    .project-view-btn { display: inline-flex; align-items: center; gap: 0.45rem; font-family: 'Space Grotesk', sans-serif; font-size: 0.82rem; font-weight: 600; color: var(--cyan); margin-top: auto; background: none; border: none; cursor: pointer; padding: 0; letter-spacing: 0.02em; transition: gap .2s; }
+    .project-view-btn:hover { gap: 0.75rem; }
+    /* Arrow icon fix — use stroke not fill */
+    .project-view-btn svg { width: 15px; height: 15px; fill: none; stroke: var(--cyan); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── MODAL ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(5,8,18,0.93); backdrop-filter: blur(10px); overflow-y: auto; padding: 2rem 1rem 3rem; }
+    .modal-overlay.open { display: flex; align-items: flex-start; justify-content: center; }
+    .modal { background: var(--navy2); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 860px; position: relative; overflow: hidden; animation: modalIn .32s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes modalIn { from { opacity:0; transform:translateY(28px) scale(.97); } to { opacity:1; transform:none; } }
+
+    /* Scroll progress bar */
+    .modal-progress { position: sticky; top: 0; left: 0; right: 0; height: 3px; background: var(--border); z-index: 10; }
+    .modal-progress-fill { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--cyan2)); width: 0%; transition: width .1s linear; border-radius: 0 2px 2px 0; }
+
+    .modal-close { position: absolute; top: 1rem; right: 1.2rem; background: rgba(10,15,30,0.85); border: 1px solid var(--border); color: var(--slate); width: 34px; height: 34px; border-radius: 50%; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 20; transition: background .2s, color .2s; }
+    .modal-close:hover { background: rgba(0,212,255,0.18); color: var(--white); }
+
+    /* Banner with real photo */
+    .modal-banner { width: 100%; height: 240px; position: relative; overflow: hidden; }
+    .modal-banner img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+    .modal-banner-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,15,30,0.35) 0%, var(--navy2) 100%); }
+    .modal-banner-title { position: absolute; bottom: 1.5rem; left: 2.5rem; right: 4rem; z-index: 2; }
+    .modal-banner-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--cyan); background: rgba(10,15,30,0.75); border: 1px solid var(--cyan); padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; backdrop-filter: blur(4px); }
+    .modal-banner-title h2 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.6rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+
+    .modal-body { padding: 1.75rem 2.5rem 2.5rem; }
+    .modal-subtitle { font-size: 0.95rem; color: var(--slate); margin-bottom: 2rem; line-height: 1.65; }
+
+    /* Outcomes */
+    .outcome-bar { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 2.5rem; }
+    .outcome-item { flex: 1; display: flex; flex-direction: column; gap: 0.15rem; padding: 1.1rem 1.3rem; border-right: 1px solid var(--border); background: rgba(0,212,255,0.04); }
+    .outcome-item:last-child { border-right: none; }
+    .outcome-val { font-family: 'Space Grotesk', sans-serif; font-size: 1.45rem; font-weight: 700; color: var(--cyan); letter-spacing: -0.02em; }
+    .outcome-lbl { font-size: 0.72rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.07em; line-height: 1.3; }
+
+    /* Story steps */
+    .story-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
+    .story-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .steps { display: flex; flex-direction: column; margin-bottom: 2.5rem; }
+    .step { display: grid; grid-template-columns: 56px 1fr; }
+    .step-left { display: flex; flex-direction: column; align-items: center; }
+    .step-num { width: 34px; height: 34px; border-radius: 50%; background: rgba(0,212,255,0.1); border: 1.5px solid var(--cyan); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--cyan); flex-shrink: 0; font-weight: 600; }
+    .step-line { width: 1.5px; flex: 1; background: var(--border); min-height: 16px; margin: 4px 0; }
+    .step:last-child .step-line { display: none; }
+    .step-content { padding-bottom: 2rem; }
+    .step-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.93rem; font-weight: 600; margin-bottom: 0.4rem; padding-top: 0.4rem; }
+    .step-body { font-size: 0.87rem; color: var(--slate); line-height: 1.66; margin-bottom: 0.8rem; }
+
+    /* Step photo */
+    .step-photo { width: 100%; border-radius: 8px; overflow: hidden; margin-top: 0.75rem; border: 1px solid var(--border); position: relative; }
+    .step-photo img { width: 100%; height: 220px; object-fit: cover; display: block; }
+    .step-photo-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(5,8,18,0.85)); padding: 1.5rem 1rem 0.6rem; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--slate); }
+
+    /* Code */
+    .code-block { background: #0B1220; border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.2rem; margin-top: 0.7rem; overflow-x: auto; }
+    .code-block pre { font-family: 'JetBrains Mono', monospace; font-size: 0.77rem; line-height: 1.72; color: #A8B9CC; white-space: pre; }
+    .code-block pre .kw { color: #00D4FF; }
+    .code-block pre .fn { color: #7DD3FC; }
+    .code-block pre .st { color: #86EFAC; }
+    .code-block pre .cm { color: #445566; }
+    .code-block pre .nu { color: #FCA5A5; }
+
+    .modal-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .modal-tech .tag { font-size: 0.76rem; }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--navy); }
+    .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; }
+    .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.4rem; transition: border-color .2s; }
+    .edu-card:hover { border-color: rgba(0,212,255,0.35); }
+    .edu-degree { font-family: 'Space Grotesk', sans-serif; font-size: 0.98rem; font-weight: 600; margin-bottom: 0.22rem; }
+    .edu-institution { font-size: 0.86rem; color: var(--cyan); margin-bottom: 0.2rem; }
+    .edu-year { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; color: var(--slate); margin-bottom: 0.7rem; }
+    .edu-modules { font-size: 0.8rem; color: var(--slate); line-height: 1.55; }
+
+    /* ── CERTIFICATIONS ── */
+    #certifications { background: var(--navy2); }
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr)); gap: 1rem; }
+    .cert-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.1rem 1.3rem; display: flex; align-items: center; gap: 1rem; transition: border-color .2s, transform .2s; }
+    .cert-card:hover { border-color: rgba(0,212,255,0.4); transform: translateX(4px); }
+    .cert-badge { width: 38px; height: 38px; border-radius: 8px; background: rgba(0,212,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .cert-name { font-family: 'Space Grotesk', sans-serif; font-size: 0.86rem; font-weight: 600; line-height: 1.3; }
+    .cert-issuer { font-size: 0.76rem; color: var(--slate); margin-top: 0.12rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--navy); text-align: center; padding: 5rem 2.5rem 4rem; }
+    .contact-sub { color: var(--slate); font-size: 0.98rem; max-width: 480px; margin: -1.5rem auto 2.5rem; line-height: 1.75; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.4rem; border: 1px solid var(--border); border-radius: 6px; font-size: 0.87rem; color: var(--white); text-decoration: none; background: var(--card); transition: border-color .2s, transform .2s; }
+    .contact-link:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .contact-link svg { width: 16px; height: 16px; fill: var(--cyan); flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer { padding: 1.4rem 2.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+    footer span { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; color: var(--slate); }
+    footer a { color: var(--cyan); text-decoration: none; }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 720px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .hero, section { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .hero-inner { flex-direction: column-reverse; gap: 2rem; }
+      .hero-photo-wrap { width: 150px; height: 150px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat { border-bottom: 1px solid var(--border); }
+      .modal-body { padding: 1.25rem 1.25rem 2rem; }
+      .outcome-bar { flex-wrap: wrap; }
+      .outcome-item { flex: none; width: 50%; }
+      .modal-banner-title { left: 1.25rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; }
+      .cursor { animation: none; }
+      .hero-photo-wrap::before { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ejn.dev</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-photo-wrap">
+      <img class="hero-photo" src="data:image/jpeg;base64,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" alt="Emmanuel John-Nelson"/>
+    </div>
+    <div class="hero-text">
+      <div class="hero-eyebrow">Available — Middlesbrough, UK · Remote / Hybrid / On-site</div>
+      <h1>Emmanuel<br/><span>John-Nelson</span></h1>
+      <div class="terminal">
+        <div class="terminal-bar"><span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span></div>
+        <div class="terminal-line"><span class="prompt">~/emmanuel $</span> whoami</div>
+        <div class="terminal-line" style="margin-top:0.35rem;"><span id="typewriter"></span><span class="cursor"></span></div>
+      </div>
+      <p class="hero-desc">BSc Software Engineering (Teesside) + MEng Computer Engineering (Leeds) — turning messy data into decisions that matter. Fluent in Python, SQL, Tableau, and Power BI. Open to graduate, full-time, and internship roles across the UK.</p>
+      <div class="hero-cta">
+        <a href="mailto:Jnelsonemmanuel03@gmail.com" class="btn btn-primary">Get in Touch</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><span class="stat-num">30%</span><span class="stat-label">SQL Report Time Saved</span></div>
+  <div class="stat"><span class="stat-num">90%</span><span class="stat-label">ML Forecast Accuracy</span></div>
+  <div class="stat"><span class="stat-num">18%</span><span class="stat-label">Ops Efficiency Gain</span></div>
+  <div class="stat"><span class="stat-num">87%</span><span class="stat-label">Dropout Prediction Accuracy</span></div>
+  <div class="stat"><span class="stat-num">3+</span><span class="stat-label">Years Experience</span></div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Core Competencies</div>
+  <div class="section-title">What I Bring to the Table</div>
+  <div class="skills-grid">
+    <div class="skill-card fade-in"><div class="skill-icon">📊</div><h3>Data Analysis & BI</h3><div class="skill-tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Tableau</span><span class="tag">Power BI</span><span class="tag">Excel (Advanced)</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-icon">🗄️</div><h3>Databases & SQL</h3><div class="skill-tags"><span class="tag">MySQL</span><span class="tag">PostgreSQL</span><span class="tag">SQLite</span><span class="tag">ETL Pipelines</span><span class="tag">Database Design</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-icon">🤖</div><h3>Machine Learning</h3><div class="skill-tags"><span class="tag">Scikit-learn</span><span class="tag">ARIMA</span><span class="tag">A/B Testing</span><span class="tag">Hypothesis Testing</span><span class="tag">Statistical Modelling</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-icon">⚙️</div><h3>Software Engineering</h3><div class="skill-tags"><span class="tag">Flask</span><span class="tag">Django</span><span class="tag">React.js</span><span class="tag">Node.js</span><span class="tag">RESTful APIs</span><span class="tag">Git/GitHub</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-icon">📈</div><h3>Business Intelligence</h3><div class="skill-tags"><span class="tag">KPI Reporting</span><span class="tag">Dashboards</span><span class="tag">Data Wrangling</span><span class="tag">Revenue Forecasting</span><span class="tag">Customer Segmentation</span></div></div>
+    <div class="skill-card fade-in"><div class="skill-icon">🔬</div><h3>Process & Methods</h3><div class="skill-tags"><span class="tag">Agile/Scrum</span><span class="tag">Data QA</span><span class="tag">Technical Documentation</span><span class="tag">Code Review</span></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Work History</div>
+  <div class="section-title">Professional Experience</div>
+  <div class="exp-timeline">
+    <div class="exp-item fade-in">
+      <div class="exp-date">2024 – Present</div>
+      <div class="exp-role">Junior Data Analyst</div>
+      <div class="exp-company">DataCore Solutions UK — Remote, England</div>
+      <ul class="exp-bullets">
+        <li>Analysed large datasets using Python and SQL, improving operational decision-making efficiency <span class="exp-metric">+18%</span></li>
+        <li>Built interactive dashboards and KPI reports in Tableau and Power BI for real-time business performance monitoring</li>
+        <li>Optimised SQL queries for data extraction and transformation — reducing report generation time <span class="exp-metric">−30%</span></li>
+        <li>Conducted A/B and hypothesis testing to validate business decisions and inform product roadmap priorities</li>
+      </ul>
+    </div>
+    <div class="exp-item fade-in">
+      <div class="exp-date">2023 – 2024</div>
+      <div class="exp-role">Software Engineering Intern</div>
+      <div class="exp-company">NovaTech Digital — Remote, England</div>
+      <ul class="exp-bullets">
+        <li>Developed RESTful APIs in Python (Flask) and JavaScript (Node.js) for data ingestion workflows</li>
+        <li>Optimised relational database schemas in PostgreSQL and MySQL, improving query performance <span class="exp-metric">+35%</span></li>
+        <li>Performed code reviews, debugging, and unit testing across Python and JavaScript codebases</li>
+        <li>Collaborated with data teams to design ETL pipelines for automated extraction, transformation, and loading</li>
+      </ul>
+    </div>
+    <div class="exp-item fade-in">
+      <div class="exp-date">2022 – 2023</div>
+      <div class="exp-role">Freelance Data Analyst & BI Consultant</div>
+      <div class="exp-company">Self-Employed — Middlesbrough, England</div>
+      <ul class="exp-bullets">
+        <li>Delivered end-to-end analysis projects: sales trends, customer segmentation, and revenue forecasting</li>
+        <li>Created Tableau and Excel dashboards translating complex datasets into clear visual narratives</li>
+        <li>Analytical reports contributed directly to client revenue growth of <span class="exp-metric">10–18%</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Portfolio</div>
+  <div class="section-title">Key Projects</div>
+  <div class="projects-grid">
+    <div class="project-card fade-in" onclick="openModal('modal-teesside')">
+      <div class="project-thumb">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=700&h=320&fit=crop&q=80" alt="Teesside Dashboard" loading="lazy"/>
+      </div>
+      <div class="project-header"><span class="project-icon">🗺️</span><span class="project-badge">MEng Capstone</span></div>
+      <h3>Teesside Regional Economic Data Dashboard</h3>
+      <p>Interactive Power BI dashboard analysing Teesside's regional economic indicators from open government datasets. Distinction-level recognition from faculty and industry partners.</p>
+      <div class="project-metric">Distinction — Faculty & Industry Recognised</div>
+      <div class="project-tech"><span class="tag">Power BI</span><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Open Data</span></div>
+      <button class="project-view-btn">Read case study <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+    <div class="project-card fade-in" onclick="openModal('modal-ecommerce')">
+      <div class="project-thumb">
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=700&h=320&fit=crop&q=80" alt="Sales Forecasting" loading="lazy"/>
+      </div>
+      <div class="project-header"><span class="project-icon">📦</span><span class="project-badge">ML · Time Series</span></div>
+      <h3>E-Commerce Sales Forecasting Model</h3>
+      <p>Time-series forecasting system using Python, Scikit-learn, and ARIMA. Results visualised in Tableau for stakeholder presentation and academic assessment.</p>
+      <div class="project-metric">90% Forecast Accuracy — 6-Month Horizon</div>
+      <div class="project-tech"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">Scikit-learn</span><span class="tag">ARIMA</span><span class="tag">Tableau</span></div>
+      <button class="project-view-btn">Read case study <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+    <div class="project-card fade-in" onclick="openModal('modal-retention')">
+      <div class="project-thumb">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=700&h=320&fit=crop&q=80" alt="Student Retention" loading="lazy"/>
+      </div>
+      <div class="project-header"><span class="project-icon">🎓</span><span class="project-badge">BSc Capstone</span></div>
+      <h3>Student Retention Analytics System</h3>
+      <p>Full-stack web application with ML-based dropout risk scoring. Built with Flask, PostgreSQL, and React.js. Awarded top project distinction by faculty panel.</p>
+      <div class="project-metric">87% ML Prediction Accuracy · Top Distinction</div>
+      <div class="project-tech"><span class="tag">Flask</span><span class="tag">PostgreSQL</span><span class="tag">React.js</span><span class="tag">Scikit-learn</span></div>
+      <button class="project-view-btn">Read case study <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic Background</div>
+  <div class="section-title">Education</div>
+  <div class="edu-grid">
+    <div class="edu-card fade-in"><div class="edu-degree">MEng — Computer Engineering</div><div class="edu-institution">University of Leeds</div><div class="edu-year">Expected Graduation: 2027</div><div class="edu-modules">Machine Learning & AI · Data Engineering & Analytics · Embedded Systems · High-Performance Computing · Database Management · Digital Signal Processing</div></div>
+    <div class="edu-card fade-in"><div class="edu-degree">BSc — Software Engineering</div><div class="edu-institution">Teesside University</div><div class="edu-year">Graduated: 2026 · Dean's List</div><div class="edu-modules">Database Systems (SQL) · Data Structures & Algorithms · Software Design Patterns · Web Development · OOP · Software Testing & QA</div></div>
+    <div class="edu-card fade-in"><div class="edu-degree">BTEC Level 3 Extended Diploma — IT</div><div class="edu-institution">Middlesbrough College</div><div class="edu-year">Completed: 2022</div><div class="edu-modules">Programming Principles · Data Management · Systems Analysis · Digital Technologies in Business · IT Project Management</div></div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <div class="section-title">Certifications</div>
+  <div class="cert-grid">
+    <div class="cert-card fade-in"><div class="cert-badge">🏅</div><div><div class="cert-name">Google Data Analytics Professional Certificate</div><div class="cert-issuer">Google — via Coursera</div></div></div>
+    <div class="cert-card fade-in"><div class="cert-badge">🏅</div><div><div class="cert-name">IBM Data Science Professional Certificate</div><div class="cert-issuer">IBM — via Coursera</div></div></div>
+    <div class="cert-card fade-in"><div class="cert-badge">🏅</div><div><div class="cert-name">SQL for Data Science</div><div class="cert-issuer">University of California — Coursera</div></div></div>
+    <div class="cert-card fade-in"><div class="cert-badge">🏅</div><div><div class="cert-name">Python for Everybody</div><div class="cert-issuer">University of Michigan — Coursera</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <div class="section-title">Open to New Opportunities</div>
+  <p class="contact-sub">Available immediately for Data Analyst, Business Intelligence, Data Science, and Software Engineering roles. Full right to work in the UK — remote, hybrid, or on-site.</p>
+  <div class="contact-links">
+    <a href="mailto:Jnelsonemmanuel03@gmail.com" class="contact-link"><svg viewBox="0 0 24 24"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>Jnelsonemmanuel03@gmail.com</a>
+    <a href="https://www.linkedin.com/in/emmanuel-john-n-b8a8583a9" target="_blank" rel="noopener" class="contact-link"><svg viewBox="0 0 24 24"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57A1.46 1.46 0 0 1 14.38 12.11A1.46 1.46 0 0 1 15.84 13.57V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19A1.69 1.69 0 0 0 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56M8.27 18.5V10.13H5.5V18.5H8.27Z"/></svg>LinkedIn</a>
+    <a href="tel:07350153140" class="contact-link"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>07350 153140</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Emmanuel John-Nelson · Middlesbrough, England</span>
+  <span>BSc Software Engineering · MEng Computer Engineering</span>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════
+     MODAL 1 — TEESSIDE ECONOMIC DASHBOARD
+═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-teesside">
+  <div class="modal">
+    <div class="modal-progress"><div class="modal-progress-fill" id="prog-teesside"></div></div>
+    <button class="modal-close" onclick="closeModal('modal-teesside')">✕</button>
+    <div class="modal-banner">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&h=480&fit=crop&q=85" alt="Data Dashboard" loading="lazy"/>
+      <div class="modal-banner-overlay"></div>
+      <div class="modal-banner-title">
+        <span class="modal-banner-badge">MEng Capstone · Power BI · Python · SQL</span>
+        <h2>Teesside Regional Economic Data Dashboard</h2>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p class="modal-subtitle">An interactive Power BI dashboard built to analyse and communicate Teesside's regional economic health — translating complex public datasets into actionable intelligence for policymakers and academic reviewers. Awarded distinction by faculty and recognised by industry partners at Tees Valley Combined Authority.</p>
+      <div class="outcome-bar">
+        <div class="outcome-item"><span class="outcome-val">Distinction</span><span class="outcome-lbl">Academic Grade</span></div>
+        <div class="outcome-item"><span class="outcome-val">6</span><span class="outcome-lbl">KPIs Tracked</span></div>
+        <div class="outcome-item"><span class="outcome-val">3</span><span class="outcome-lbl">Data Sources Merged</span></div>
+        <div class="outcome-item"><span class="outcome-val">Industry</span><span class="outcome-lbl">Partner Recognition</span></div>
+      </div>
+      <div class="story-section-title">Project Story — Step by Step</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">01</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">The Problem — A Region Without a Clear Mirror</div>
+            <div class="step-body">Teesside's economic data was scattered across ONS datasets, local council reports, and industrial surveys — none of it in one place. Policymakers couldn't easily see how employment, GDP contribution, and investment flows related to each other over time. The goal was a single interactive dashboard that told that story clearly.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=380&fit=crop&q=80" alt="Scattered data across multiple spreadsheets" loading="lazy"/>
+              <div class="step-photo-caption">Multiple disconnected government data sources — ONS, NOMIS, and TVCA reports</div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">02</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Data Acquisition & Cleaning with Python</div>
+            <div class="step-body">Three open government datasets were downloaded — ONS regional GDP figures, NOMIS employment statistics, and TVCA investment reports. Python (Pandas) was used to clean inconsistencies, standardise column names, resolve date format mismatches, and remove duplicates before loading into a structured SQL schema.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=380&fit=crop&q=80" alt="Python code on screen" loading="lazy"/>
+              <div class="step-photo-caption">Python / Pandas pipeline — standardising and merging three regional datasets</div>
+            </div>
+            <div class="code-block"><pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+gdp_df    = pd.<span class="fn">read_csv</span>(<span class="st">'ons_teesside_gdp.csv'</span>)
+employ_df = pd.<span class="fn">read_csv</span>(<span class="st">'nomis_employment.csv'</span>)
+invest_df = pd.<span class="fn">read_csv</span>(<span class="st">'tvca_investment.csv'</span>)
+
+<span class="kw">for</span> df <span class="kw">in</span> [gdp_df, employ_df, invest_df]:
+    df[<span class="st">'date'</span>]   = pd.<span class="fn">to_datetime</span>(df[<span class="st">'date'</span>], dayfirst=<span class="kw">True</span>)
+    df[<span class="st">'region'</span>] = df[<span class="st">'region'</span>].<span class="fn">str.upper</span>().<span class="fn">str.strip</span>()
+
+merged = gdp_df.<span class="fn">merge</span>(employ_df, on=[<span class="st">'date'</span>,<span class="st">'region'</span>])
+merged = merged.<span class="fn">merge</span>(invest_df, on=[<span class="st">'date'</span>,<span class="st">'region'</span>])
+<span class="fn">print</span>(<span class="fn">f</span><span class="st">"Clean rows: {len(merged)} | Nulls: {merged.isnull().sum().sum()}"</span>)</pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">03</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">PostgreSQL Schema Design & SQL Views</div>
+            <div class="step-body">The cleaned data was loaded into a normalised PostgreSQL schema with three tables linked by a region-date composite key. SQL views were created for each indicator group, making Power BI ingestion fast and the underlying data reusable for future analysts.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=380&fit=crop&q=80" alt="Database server and schema" loading="lazy"/>
+              <div class="step-photo-caption">PostgreSQL normalised schema — three tables, composite keys, reusable SQL views</div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">04</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Building the Power BI Dashboard</div>
+            <div class="step-body">Power BI was connected directly to the PostgreSQL views. Six report pages were designed: Regional Overview, GDP Trends, Employment Heatmap, Investment Flow, Sector Comparison, and a Year-on-Year Summary. DAX measures were written for running totals, YoY percentage change, and cross-sector correlations. Slicers allowed filtering by year, sector, and sub-region.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1543286386-2e659306cd6c?w=800&h=380&fit=crop&q=80" alt="Business analytics dashboard on screen" loading="lazy"/>
+              <div class="step-photo-caption">Power BI dashboard — six report pages with DAX measures, slicers, and KPI cards</div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">05</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Faculty Presentation & Industry Recognition</div>
+            <div class="step-body">The completed dashboard was presented to a panel of faculty assessors and industry reviewers from Tees Valley Combined Authority. The panel praised the clarity of the data storytelling, the DAX logic quality, and the practical applicability for real regional policy decisions. The project was awarded a distinction — the highest grade available.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=380&fit=crop&q=80" alt="University presentation to panel" loading="lazy"/>
+              <div class="step-photo-caption">Presentation to faculty and Tees Valley Combined Authority reviewers — awarded Distinction</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="story-section-title">Technologies Used</div>
+      <div class="modal-tech"><span class="tag">Power BI Desktop</span><span class="tag">DAX</span><span class="tag">Python 3.11</span><span class="tag">Pandas</span><span class="tag">PostgreSQL</span><span class="tag">SQL Views</span><span class="tag">ONS Open Data</span><span class="tag">NOMIS API</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     MODAL 2 — E-COMMERCE FORECASTING
+═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-ecommerce">
+  <div class="modal">
+    <div class="modal-progress"><div class="modal-progress-fill" id="prog-ecommerce"></div></div>
+    <button class="modal-close" onclick="closeModal('modal-ecommerce')">✕</button>
+    <div class="modal-banner">
+      <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&h=480&fit=crop&q=85" alt="Financial charts forecasting" loading="lazy"/>
+      <div class="modal-banner-overlay"></div>
+      <div class="modal-banner-title">
+        <span class="modal-banner-badge">ML · Time Series · Python · ARIMA · Tableau</span>
+        <h2>E-Commerce Sales Forecasting Model</h2>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p class="modal-subtitle">A production-grade time-series forecasting system built to predict 6-month forward sales for an e-commerce operation — combining classical ARIMA with machine learning to achieve 90% forecast accuracy and eliminate stock-planning guesswork.</p>
+      <div class="outcome-bar">
+        <div class="outcome-item"><span class="outcome-val">90%</span><span class="outcome-lbl">Forecast Accuracy</span></div>
+        <div class="outcome-item"><span class="outcome-val">6 mo</span><span class="outcome-lbl">Prediction Horizon</span></div>
+        <div class="outcome-item"><span class="outcome-val">SARIMA</span><span class="outcome-lbl">Winning Model</span></div>
+        <div class="outcome-item"><span class="outcome-val">Tableau</span><span class="outcome-lbl">Stakeholder Output</span></div>
+      </div>
+      <div class="story-section-title">Project Story — Step by Step</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">01</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">The Challenge — Predicting What's Next</div>
+            <div class="step-body">An e-commerce dataset spanning 18 months of daily sales records was provided for academic assessment. The challenge: build a model that could reliably forecast the next 6 months, providing enough lead time for procurement and inventory planning. Target accuracy was 85%; the stretch goal was 90%.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=380&fit=crop&q=80" alt="E-commerce warehouse and inventory" loading="lazy"/>
+              <div class="step-photo-caption">The client challenge: accurate 6-month sales forecasting to streamline inventory management</div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">02</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Exploratory Data Analysis & Stationarity Testing</div>
+            <div class="step-body">The raw sales series showed clear weekly seasonality and a long-term upward trend — both needed handling before modelling. The Augmented Dickey-Fuller test confirmed non-stationarity, so first-order differencing was applied. ACF and PACF plots were then analysed to determine correct ARIMA(p,d,q) parameters.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=380&fit=crop&q=80" alt="Data analysis charts and graphs" loading="lazy"/>
+              <div class="step-photo-caption">EDA phase — ACF/PACF plots, seasonality decomposition, and stationarity testing</div>
+            </div>
+            <div class="code-block"><pre><span class="kw">from</span> statsmodels.tsa.stattools <span class="kw">import</span> adfuller
+
+result = <span class="fn">adfuller</span>(sales_series)
+<span class="fn">print</span>(<span class="fn">f</span><span class="st">"ADF Statistic: {result[0]:.4f}"</span>)
+<span class="fn">print</span>(<span class="fn">f</span><span class="st">"p-value: {result[1]:.4f}"</span>)  <span class="cm"># p &gt; 0.05 → non-stationary</span>
+
+<span class="cm"># Apply first-order differencing → re-test</span>
+sales_diff = sales_series.<span class="fn">diff</span>().<span class="fn">dropna</span>()
+<span class="cm"># p-value now &lt; 0.01 → stationary ✓</span></pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">03</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Model Comparison — ARIMA vs SARIMA vs XGBoost</div>
+            <div class="step-body">Three model candidates were evaluated on a 20% hold-out test set using RMSE and MAPE. SARIMA(2,1,2)(1,1,1,7) outperformed ARIMA and XGBoost by capturing both trend and weekly seasonality, delivering a MAPE of 9.8% — translating to 90.2% accuracy.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=380&fit=crop&q=80" alt="Machine learning matrix and model code" loading="lazy"/>
+              <div class="step-photo-caption">Three-model cross-validation — SARIMA emerged as the clear winner at 90.2% accuracy</div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">04</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Building the 180-Day Forecast with Confidence Intervals</div>
+            <div class="step-body">The final SARIMA model was fitted on the full 18-month training set and used to generate a 180-day forward forecast with 95% confidence intervals. The widening confidence band gave stakeholders an honest view of forecast uncertainty rather than false precision.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=800&h=380&fit=crop&q=80" alt="Stock market forecast chart" loading="lazy"/>
+              <div class="step-photo-caption">180-day SARIMA forecast with 95% confidence band — actuals vs predicted</div>
+            </div>
+            <div class="code-block"><pre><span class="kw">from</span> statsmodels.tsa.statespace.sarimax <span class="kw">import</span> SARIMAX
+
+model  = <span class="fn">SARIMAX</span>(sales_train, order=(<span class="nu">2</span>,<span class="nu">1</span>,<span class="nu">2</span>), seasonal_order=(<span class="nu">1</span>,<span class="nu">1</span>,<span class="nu">1</span>,<span class="nu">7</span>))
+fitted = model.<span class="fn">fit</span>(disp=<span class="kw">False</span>)
+
+forecast    = fitted.<span class="fn">get_forecast</span>(steps=<span class="nu">180</span>)
+forecast_df = forecast.<span class="fn">summary_frame</span>(alpha=<span class="nu">0.05</span>)
+<span class="fn">print</span>(forecast_df[[<span class="st">'mean'</span>,<span class="st">'mean_ci_lower'</span>,<span class="st">'mean_ci_upper'</span>]].<span class="fn">head</span>())</pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">05</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Tableau Visualisation for Stakeholders</div>
+            <div class="step-body">The forecast output was exported to CSV and visualised in Tableau as a dual-axis chart — historical actuals alongside the forward projection with its confidence band. Designed for non-technical stakeholders making stock and budgeting decisions, this visual was the centrepiece of the academic presentation and received particular praise from assessors.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=380&fit=crop&q=80" alt="Business stakeholder presentation with charts" loading="lazy"/>
+              <div class="step-photo-caption">Tableau dual-axis forecast chart presented to stakeholders and academic assessors</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="story-section-title">Technologies Used</div>
+      <div class="modal-tech"><span class="tag">Python 3.11</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Statsmodels</span><span class="tag">SARIMA</span><span class="tag">Scikit-learn</span><span class="tag">Matplotlib</span><span class="tag">Tableau Public</span></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════
+     MODAL 3 — STUDENT RETENTION SYSTEM
+═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-retention">
+  <div class="modal">
+    <div class="modal-progress"><div class="modal-progress-fill" id="prog-retention"></div></div>
+    <button class="modal-close" onclick="closeModal('modal-retention')">✕</button>
+    <div class="modal-banner">
+      <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900&h=480&fit=crop&q=85" alt="University students" loading="lazy"/>
+      <div class="modal-banner-overlay"></div>
+      <div class="modal-banner-title">
+        <span class="modal-banner-badge">BSc Capstone · Flask · PostgreSQL · React.js · Scikit-learn</span>
+        <h2>Student Retention Analytics System</h2>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p class="modal-subtitle">A full-stack web application that uses machine learning to score individual students by dropout risk — giving academic advisors an early-warning dashboard to intervene before students disengage. Awarded top project distinction by the Teesside University faculty panel.</p>
+      <div class="outcome-bar">
+        <div class="outcome-item"><span class="outcome-val">87%</span><span class="outcome-lbl">ML Accuracy</span></div>
+        <div class="outcome-item"><span class="outcome-val">Top</span><span class="outcome-lbl">Distinction Grade</span></div>
+        <div class="outcome-item"><span class="outcome-val">4-tier</span><span class="outcome-lbl">Architecture</span></div>
+        <div class="outcome-item"><span class="outcome-val">Real-time</span><span class="outcome-lbl">Risk Scoring</span></div>
+      </div>
+      <div class="story-section-title">Project Story — Step by Step</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-left"><div class="step-num">01</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">The Problem — Students Slipping Through the Cracks</div>
+            <div class="step-body">Universities lose a significant portion of students to dropout each year — and most interventions happen too late, after a student has already disengaged. The brief was to build a system that surfaces at-risk students early using academic and engagement data, so advisors can act while there's still time to help.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800&h=380&fit=crop&q=80" alt="University lecture hall with students" loading="lazy"/>
+              <div class="step-photo-caption">The problem: students disengaging silently before advisors can intervene</div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">02</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Database Design — Modelling a Student's Academic Life</div>
+            <div class="step-body">PostgreSQL was used to design a normalised 5-table schema: students, modules, grades, attendance, and engagement_events. Foreign key relationships were carefully mapped so any student's full academic history could be retrieved in a single JOIN query — the foundation the ML feature pipeline depended on.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=380&fit=crop&q=80" alt="Database schema on whiteboard" loading="lazy"/>
+              <div class="step-photo-caption">5-table PostgreSQL schema — students, grades, attendance, modules, engagement_events</div>
+            </div>
+            <div class="code-block"><pre><span class="cm">-- Core schema (simplified)</span>
+<span class="kw">CREATE TABLE</span> students (
+    id         <span class="fn">SERIAL PRIMARY KEY</span>,
+    name       <span class="fn">VARCHAR</span>(<span class="nu">100</span>),
+    programme  <span class="fn">VARCHAR</span>(<span class="nu">80</span>),
+    year       <span class="fn">INT</span>
+);
+<span class="kw">CREATE TABLE</span> engagement_events (
+    student_id  <span class="fn">INT REFERENCES</span> students(id),
+    event_type  <span class="fn">VARCHAR</span>(<span class="nu">50</span>),
+    event_ts    <span class="fn">TIMESTAMPTZ</span>,
+    platform    <span class="fn">VARCHAR</span>(<span class="nu">30</span>)
+);</pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">03</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Feature Engineering & ML Pipeline</div>
+            <div class="step-body">Twelve features were engineered: rolling average grade, 4-week attendance rate, days since last login, submission rate, and missed deadlines count. A Random Forest classifier was selected after cross-validation. SMOTE was applied to address class imbalance between at-risk and non-at-risk students, achieving 87.4% accuracy.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&h=380&fit=crop&q=80" alt="Machine learning AI visualisation" loading="lazy"/>
+              <div class="step-photo-caption">Random Forest + SMOTE pipeline — 12 engineered features, 87.4% test accuracy</div>
+            </div>
+            <div class="code-block"><pre><span class="kw">from</span> sklearn.ensemble <span class="kw">import</span> RandomForestClassifier
+<span class="kw">from</span> sklearn.pipeline <span class="kw">import</span> Pipeline
+<span class="kw">from</span> imblearn.over_sampling <span class="kw">import</span> SMOTE
+
+pipeline = <span class="fn">Pipeline</span>([
+    (<span class="st">'smote'</span>, <span class="fn">SMOTE</span>(random_state=<span class="nu">42</span>)),
+    (<span class="st">'model'</span>, <span class="fn">RandomForestClassifier</span>(n_estimators=<span class="nu">200</span>, max_depth=<span class="nu">8</span>, random_state=<span class="nu">42</span>))
+])
+pipeline.<span class="fn">fit</span>(X_train, y_train)
+<span class="fn">print</span>(<span class="fn">f</span><span class="st">"Accuracy: {pipeline.score(X_test, y_test):.2%}"</span>)
+<span class="cm"># → Accuracy: 87.40%</span></pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">04</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">Flask REST API — Serving Predictions</div>
+            <div class="step-body">The trained model was serialised with joblib and wrapped in a Flask REST API. Two endpoints were built: <code style="font-family:'JetBrains Mono',monospace;font-size:0.8em;color:var(--cyan)">GET /students</code> to retrieve the student list, and <code style="font-family:'JetBrains Mono',monospace;font-size:0.8em;color:var(--cyan)">POST /predict</code> to return a real-time dropout risk score (0–100). JWT authentication restricted access to authorised staff only.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=380&fit=crop&q=80" alt="Code on monitor - Flask API development" loading="lazy"/>
+              <div class="step-photo-caption">Flask REST API with JWT auth — two endpoints serving real-time risk scores</div>
+            </div>
+            <div class="code-block"><pre><span class="kw">from</span> flask <span class="kw">import</span> Flask, request, jsonify
+<span class="kw">import</span> joblib
+
+app   = <span class="fn">Flask</span>(__name__)
+model = joblib.<span class="fn">load</span>(<span class="st">'retention_model.pkl'</span>)
+
+<span class="kw">@app.route</span>(<span class="st">'/predict'</span>, methods=[<span class="st">'POST'</span>])
+<span class="kw">def</span> <span class="fn">predict</span>():
+    features   = request.json[<span class="st">'features'</span>]
+    prob       = model.<span class="fn">predict_proba</span>([features])[<span class="nu">0</span>][<span class="nu">1</span>]
+    risk_score = <span class="fn">round</span>(prob * <span class="nu">100</span>, <span class="nu">1</span>)
+    level = <span class="st">'HIGH'</span> <span class="kw">if</span> prob > <span class="nu">0.6</span> <span class="kw">else</span> <span class="st">'MEDIUM'</span> <span class="kw">if</span> prob > <span class="nu">0.35</span> <span class="kw">else</span> <span class="st">'LOW'</span>
+    <span class="kw">return</span> <span class="fn">jsonify</span>({<span class="st">'risk_score'</span>: risk_score, <span class="st">'risk_level'</span>: level})</pre></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-left"><div class="step-num">05</div><div class="step-line"></div></div>
+          <div class="step-content">
+            <div class="step-title">React Dashboard & Top Distinction Award</div>
+            <div class="step-body">The React.js frontend displayed a sortable table of students colour-coded by risk level — red (high), amber (medium), green (low) — with drill-down cards showing the key factors behind each score. The faculty panel praised the explainability layer particularly: advisors could see exactly why a student was flagged, not just a number. The project was awarded the top distinction of the entire cohort.</div>
+            <div class="step-photo">
+              <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=380&fit=crop&q=80" alt="React dashboard on laptop screen" loading="lazy"/>
+              <div class="step-photo-caption">React.js dashboard — colour-coded risk table with explainability drill-down cards</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="story-section-title">Technologies Used</div>
+      <div class="modal-tech"><span class="tag">Python 3.11</span><span class="tag">Flask</span><span class="tag">PostgreSQL</span><span class="tag">React.js</span><span class="tag">Scikit-learn</span><span class="tag">Random Forest</span><span class="tag">SMOTE</span><span class="tag">JWT Auth</span><span class="tag">joblib</span><span class="tag">Pandas</span></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  /* ── TYPEWRITER ── */
+  const roles = ['Data Analyst','Business Intelligence Specialist','Software Engineer','AI Training Expert','ML & Python Developer'];
+  let ri=0, ci=0, del=false;
+  const tw = document.getElementById('typewriter');
+  function type(){
+    const w=roles[ri];
+    if(!del){ tw.textContent=w.slice(0,ci+1); ci++; if(ci===w.length){del=true;setTimeout(type,1900);return;} }
+    else { tw.textContent=w.slice(0,ci-1); ci--; if(ci===0){del=false;ri=(ri+1)%roles.length;} }
+    setTimeout(type,del?52:82);
+  }
+  type();
+
+  /* ── SCROLL FADE-IN ── */
+  const obs = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+
+  /* ── MODAL OPEN / CLOSE ── */
+  function openModal(id){
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow='hidden';
+    // Reset progress
+    const fill = document.querySelector('#'+id+' .modal-progress-fill');
+    if(fill) fill.style.width='0%';
+  }
+  function closeModal(id){
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow='';
+  }
+
+  /* ── MODAL SCROLL PROGRESS ── */
+  document.querySelectorAll('.modal-overlay').forEach(overlay=>{
+    // Close on backdrop
+    overlay.addEventListener('click', e=>{ if(e.target===overlay) closeModal(overlay.id); });
+    // Progress bar on scroll
+    overlay.addEventListener('scroll', ()=>{
+      const fill = overlay.querySelector('.modal-progress-fill');
+      if(!fill) return;
+      const s = overlay.scrollTop;
+      const h = overlay.scrollHeight - overlay.clientHeight;
+      fill.style.width = (h > 0 ? (s/h)*100 : 0) + '%';
+    });
+  });
+
+  /* ── ESCAPE KEY ── */
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m=>closeModal(m.id));
+  });
+</script>
+</body>
+</html>
